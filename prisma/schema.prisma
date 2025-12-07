@@ -1,0 +1,140 @@
+generator client {
+  provider   = "prisma-client-js"
+  engineType = "library"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Producto {
+  product_id     BigInt          @id @default(autoincrement())
+  nombre         String          @unique
+  categoria      String
+  marca          String?
+  precio         Decimal
+  cantidad_stock Int             @default(0)
+  activo         Boolean         @default(true)
+  created_at     DateTime        @default(now())
+  updated_at     DateTime        @default(now())
+  image_url      String?
+  detalles       DetallePedido[]
+  devoluciones   Devolucion[]
+
+  // 👇 Relación inversa con Review
+  reviews Review[] @relation("ProductoReviews")
+
+  @@map("productos")
+}
+
+model Review {
+  review_id   BigInt   @id @default(autoincrement())
+  product_id  BigInt
+  customer_id BigInt? // opcional, por si quieres ligarlo luego a Cliente
+  rating      Int
+  comentario  String?
+  created_at  DateTime @default(now())
+
+  // 👇 Relación hacia Producto, con el MISMO nombre de relación
+  producto Producto @relation("ProductoReviews", fields: [product_id], references: [product_id])
+
+  @@map("reviews")
+}
+
+/// *
+/// * ========== CLIENTES ==========
+model Cliente {
+  customer_id   BigInt       @id @default(autoincrement())
+  nombre        String
+  correo        String       @unique
+  telefono      String?
+  ciudad        String?
+  region        String?
+  pais          String?
+  fecha_alta    DateTime     @default(now())
+  activo        Boolean      @default(true)
+  created_at    DateTime     @default(now())
+  updated_at    DateTime     @default(now())
+  devoluciones  Devolucion[]
+  pedidos       Pedido[]
+  password_hash String?
+
+  direccion String?
+  cp        String?
+
+  @@map("clientes")
+}
+
+/// *
+/// * ========== PEDIDOS (cabecera) ==========
+model Pedido {
+  order_id    BigInt   @id @default(autoincrement())
+  customer_id BigInt
+  fecha       DateTime @default(now())
+  estado      String
+  moneda      String   @default("MXN")
+  subtotal    Decimal  @default(0)
+  descuento   Decimal  @default(0)
+  envio       Decimal  @default(0)
+  total       Decimal
+
+  // --- NUEVO: datos de pago ---
+  metodo_pago   String? // ej. "paypal"
+  paypal_txn_id String? // id transacción paypal
+  paypal_status String? // Completed, Pending, etc.
+  paypal_raw    Json? // payload crudo para debug
+
+  created_at DateTime        @default(now())
+  updated_at DateTime        @default(now())
+  detalle    DetallePedido[]
+  devolucion Devolucion[]
+  cliente    Cliente         @relation(fields: [customer_id], references: [customer_id])
+
+  @@map("pedidos")
+}
+
+/// *
+/// * ========== DETALLE DE PEDIDO (líneas) ==========
+model DetallePedido {
+  order_item_id   BigInt   @id @default(autoincrement())
+  order_id        BigInt
+  product_id      BigInt
+  nombre_producto String
+  cantidad        Decimal
+  precio_unitario Decimal
+  descuento       Decimal  @default(0)
+  subtotal_linea  Decimal
+  pedido          Pedido   @relation(fields: [order_id], references: [order_id], onDelete: Cascade)
+  producto        Producto @relation(fields: [product_id], references: [product_id])
+
+  @@map("detalle_pedido")
+}
+
+/// *
+/// * ========== DEVOLUCIONES ==========
+model Devolucion {
+  return_id       BigInt   @id @default(autoincrement())
+  order_id        BigInt
+  product_id      BigInt
+  customer_id     BigInt
+  fecha           DateTime @default(now())
+  cantidad        Decimal
+  monto_reembolso Decimal?
+  motivo          String?
+  estado          String   @default("en_proceso")
+  created_at      DateTime @default(now())
+  cliente         Cliente  @relation(fields: [customer_id], references: [customer_id])
+  pedido          Pedido   @relation(fields: [order_id], references: [order_id])
+  producto        Producto @relation(fields: [product_id], references: [product_id])
+
+  @@map("devoluciones")
+}
+
+model Categoria {
+  categoria_id BigInt   @id @default(autoincrement()) @db.BigInt
+  nombre       String   @unique @db.Text
+  created_at   DateTime @default(now()) @db.Timestamp(3)
+
+  @@map("categorias")
+}
