@@ -1,0 +1,117 @@
+/* styles/Login.module.css */
+
+/* Contenedor principal (equivale a .container) */
+.page {
+  min-height: 100vh;
+  background-color: #eff6ff; /* azul muy claro */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem; /* 16px */
+  box-sizing: border-box;
+}
+
+/* Tarjeta (equivale a .card) */
+.card {
+  background: #ffffff;
+  border-radius: 0.5rem;          /* 8px */
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 2rem;                  /* 32px */
+  width: 100%;
+  max-width: 28rem;               /* 448px */
+  box-sizing: border-box;
+}
+
+/* Logo (equivale a .logoContainer + .logoStern) */
+.logo {
+  display: block;
+  width: 13rem;                   /* 208px */
+  max-width: 100%;
+  margin: 0 auto 1.5rem auto;     /* centrado + separación inferior */
+}
+
+/* Título (equivale a .title) */
+.title {
+  font-size: 1.5rem;              /* 24px */
+  font-weight: 700;
+  text-align: center;
+  color: #1f2937;                 /* gris muy oscuro */
+  margin: 0 0 1.5rem 0;
+}
+
+/* Formulario (equivale a .form) */
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;                      /* 16px */
+}
+.label{
+  color: black;
+}
+
+/* Campos (equivale a .input + focus) */
+.input {
+  width: 100%;
+  padding: 0.5rem 1rem;           /* 8px 16px */
+  border: 1px solid #d1d5db;      /* gris borde */
+  border-radius: 0.5rem;          /* 8px */
+  font-size: 1rem;
+  box-sizing: border-box;
+  background: #ffffff;
+  color: #111827;
+}
+
+.input::placeholder {
+  color: #9ca3af;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #2563eb;          /* azul */
+  box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+}
+
+/* Botón (equivale a .button + :hover) */
+.button {
+  width: 100%;
+  background-color: #2563eb;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;        /* 12px 24px */
+  border-radius: 0.5rem;          /* 8px */
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.2s;
+}
+
+.button:hover {
+  background-color: #1d4ed8;
+}
+
+.button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+.registerText {
+  text-align: center;
+  color: #4b5563;
+  margin-top: 1.5rem;
+}
+
+.registerLink {
+  color: #2563eb;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.registerLink:hover {
+  text-decoration: underline;
+}
+/* Mensaje de error (similar a registerText pero para errores) */
+.error {
+  text-align: center;
+  color: #b91c1c;                 /* rojo oscuro */
+  margin-top: 1rem;
+  font-weight: 500;
+}

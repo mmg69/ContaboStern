@@ -1,0 +1,120 @@
+.page {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e6f4ff 0%, #cdefff 40%, #b8e2ff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 30px;
+  font-family: sans-serif;
+  color: #003359;
+}
+
+/* ===== HEADER ===== */
+
+.header {
+  width: 100%;
+  max-width: 900px;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  margin-bottom: 25px;
+}
+
+.logoImg {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #003359;
+}
+
+/* ===== EMPTY / LOADING ===== */
+
+.empty {
+  margin-top: 50px;
+  padding: 30px;
+  background: white;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+}
+
+.empty p {
+  margin-bottom: 15px;
+  font-size: 1.1rem;
+}
+
+/* ===== CARD PROFILE ===== */
+
+.card {
+  width: 100%;
+  max-width: 900px;
+  background: white;
+  border-radius: 24px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+}
+
+.field {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid #e5f3ff;
+}
+
+.field:last-child {
+  border-bottom: none;
+}
+
+.field label {
+  font-weight: 600;
+  color: #00507a;
+}
+
+.field span {
+  color: #003359;
+}
+
+/* ===== BUTTONS ===== */
+
+.actions {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  justify-content: flex-end;
+}
+
+.btn,
+.btnSecondary {
+  text-decoration: none;
+  font-weight: 600;
+  padding: 12px 22px;
+  border-radius: 12px;
+  transition: 0.2s ease-in-out;
+}
+
+/* Primary */
+.btn {
+  background: #0095ff;
+  color: white;
+}
+
+.btn:hover {
+  background: #007ac7;
+}
+
+/* Secondary */
+.btnSecondary {
+  background: transparent;
+  border: 2px solid #0095ff;
+  color: #005f9e;
+}
+
+.btnSecondary:hover {
+  background: #e6f4ff;
+}
